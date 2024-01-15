@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contact")
+@RequestMapping("/api")
 public class ContactDbController
 {
     ContactDbService contactDbService;
-
     public ContactDbController(ContactDbService contactDbService) {
         this.contactDbService = contactDbService;
     }
@@ -30,37 +29,60 @@ public class ContactDbController
 //                HttpStatus.OK, contactDbService.getContactDb(contactId));
 //    }
     // Read Specific Contact Details from DB
-    @GetMapping("{contactId}")
-    public ContactDb getContactDbDetails(@PathVariable("contactId") String contactId)
+    @GetMapping("/contact/{contactId}")
+    public ContactDb getContactDbDetails(@PathVariable("contactId") int contactId)
     {
-        return contactDbService.getContactDb(contactId);
+        ContactDb contactDb = contactDbService.findById(contactId);
+
+        if (contactDb == null) {
+            throw new RuntimeException("Contact id not found - " + contactId);
+        }
+
+        return contactDb;
     }
 
     // Read All Contact Details from DB
-    @GetMapping()
+    @GetMapping("/contact")
     public List<ContactDb> getAllContactDbDetails()
     {
         return contactDbService.getAllContactDb();
     }
 
-    @PostMapping
-    public String createContactDbDetails(@RequestBody ContactDb contactDb)
+    @PostMapping("/contact")
+    public ContactDb createContactDbDetails(@RequestBody ContactDb contactDb)
     {
-        contactDbService.createContactDb(contactDb);
-        return "Contact Created Successfully";
+        // Simpan kontak
+//        contactDbService.createContactDb(contactDb);
+//
+//        return "Contact Created Successfully";
+        contactDb.setContactId(0);
+
+        ContactDb dbContact = contactDbService.save(contactDb);
+
+        return dbContact;
     }
 
-    @PutMapping
-    public String updateContactDbDetails(@RequestBody ContactDb contactDb)
+    @PutMapping("/contact")
+    public ContactDb updateContactDbDetails(@RequestBody ContactDb contactDb)
     {
-        contactDbService.updateContactDb(contactDb);
-        return "Contact Updated Successfully";
+        ContactDb dbContact = contactDbService.save(contactDb);
+
+        return dbContact;
     }
 
-    @DeleteMapping("{contactId}")
-    public String deleteContactDbDetails(@PathVariable("contactId") String contactId)
+    @DeleteMapping("/contact/{contactId}")
+    public String deleteContactDbDetails(@PathVariable("contactId") int contactId)
     {
-        contactDbService.deleteContactDb(contactId);
-        return "Contact Deleted Successfully";
+        ContactDb tempContact = contactDbService.findById(contactId);
+
+        // throw exception if null
+
+        if (tempContact == null) {
+            throw new RuntimeException("Contact id not found - " + contactId);
+        }
+
+        contactDbService.deleteById(contactId);
+
+        return "Deleted employee id - " + contactId;
     }
 }

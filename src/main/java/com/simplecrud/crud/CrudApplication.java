@@ -13,35 +13,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //
 //import java.util.ArrayList;
 //import java.util.Collections;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.util.Properties;
 
 @SpringBootApplication
+//@EnableScheduling
 public class CrudApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CrudApplication.class, args);
 	}
 
-//	@Bean
-//	public Docket swaggerConfiguration(){
-//		return new Docket(DocumentationType.SWAGGER_2)
-//				.select()
-//				.paths(PathSelectors.ant("/contact/*"))
-//				.apis(RequestHandlerSelectors.basePackage("com.simplecrud.crud"))
-//				.build()
-//				.apiInfo(apiCustomData());
-//	}
-
-//	private ApiInfo apiCustomData(){
-//		return new ApiInfo(
-//				"Contact API Application",
-//				"Contact Documentation",
-//				"1.0",
-//				"Contact Service Terms",
-//				new Contact("Esha Puri", "http://simplecrud.com",
-//						"contact@simplecrud.com"),
-//				"Think Constructive License",
-//				"http://simplecrud.com",
-//				Collections.emptyList()
-//		);
-//	}
 }

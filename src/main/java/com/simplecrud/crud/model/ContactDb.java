@@ -2,11 +2,7 @@ package com.simplecrud.crud.model;
 
 //import io.swagger.annotations.ApiModel;
 //import io.swagger.annotations.ApiModelProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-
+import jakarta.persistence.*;
 
 
 @Entity
@@ -14,26 +10,33 @@ import jakarta.persistence.Table;
 public class ContactDb
 {
     @Id
-    private String contactId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="contact_id")
+    private int contactId;
+    @Column(name="contact_name")
     private String contactName;
+    @Column(name="contact_address")
     private String contactAddress;
+    @Column(name="contact_phone_number")
     private String contactPhoneNumber;
 
     public ContactDb() {
     }
 
-    public ContactDb(String contactId, String contactName, String contactAddress, String contactPhoneNumber) {
-        this.contactId = contactId;
+    public ContactDb(String contactName, String contactAddress, String contactPhoneNumber) {
         this.contactName = contactName;
         this.contactAddress = contactAddress;
         this.contactPhoneNumber = contactPhoneNumber;
     }
 
-    public String getContactId() {
+    public ContactDb(ContactDb orElseThrow) {
+    }
+
+    public int getContactId() {
         return contactId;
     }
 
-    public void setContactId(String contactId) {
+    public void setContactId(int contactId) {
         this.contactId = contactId;
     }
 
@@ -59,5 +62,16 @@ public class ContactDb
 
     public void setContactPhoneNumber(String contactPhoneNumber) {
         this.contactPhoneNumber = contactPhoneNumber;
+    }
+
+    // define to string
+    @Override
+    public String toString() {
+        return "ContactDb{" +
+                "contactId=" + contactId +
+                ", contactName='" + contactName + '\'' +
+                ", contactAddress='" + contactAddress + '\'' +
+                ", contactPhoneNumber='" + contactPhoneNumber + '\'' +
+                '}';
     }
 }

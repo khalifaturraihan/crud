@@ -6,9 +6,15 @@ import com.simplecrud.crud.model.ContactDb;
 import java.util.List;
 
 public interface ContactDbService {
-    public String createContactDb(ContactDb contactDb);
-    public String updateContactDb(ContactDb contactDb);
-    public String deleteContactDb(String contactDbId);
-    public ContactDb getContactDb(String contactDbId);
-    public List<ContactDb> getAllContactDb();
+
+    List<ContactDb> getAllContactDb();
+    ContactDb save(ContactDb contactDb);
+    ContactDb findById(int contactDbId);
+    void deleteById(int contactDbId);
+
+//    public String createContactDb(ContactDb contactDb);
+//    public String updateContactDb(ContactDb contactDb);
+//    public String deleteContactDb(String contactDbId);
+//    public ContactDb getContactDb(String contactDbId);
+//    public List<ContactDb> getAllContactDb();
 }

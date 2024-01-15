@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ContactDbRepository extends JpaRepository<ContactDb, String> {
+public interface ContactDbRepository extends JpaRepository<ContactDb, Integer> {
 }
